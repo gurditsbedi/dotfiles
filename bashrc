@@ -200,23 +200,6 @@ then
     alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 fi
 # }}}
-# custom gcc, g++ command {{{
-# This file compiles .c or .cpp files. It automatically chooses the required
-# compiler, gcc for .c files and g++ for .cpp files. Some flags are added,
-# -ggdb for gdb, -Wall and -Werror for warnings
-xcomp ()
-{
-    file_name=$(echo $1|sed -r 's/(.*)\.(c|cpp)/\1/')
-    extension=$(echo $1|sed -r 's/(.*)\.(c|cpp)/\2/')
-    compiler="gcc"
-    if [ "$extension" = "cpp" ]; then
-        compiler="g++"
-    fi
-    echo "$compiler -ggdb -Wall -Werror $1 -o $file_name"
-    $compiler -ggdb -Wall -Werror $1 -o $file_name
-}
-alias gcx=xcomp
-# }}}
 # custom funtions {{{
 
 # ex - archive extractor
@@ -259,10 +242,16 @@ changeDesktopBackground ()
 
 
 # }}}
-
+# path additions {{{
 export PATH=~/.local/bin:$PATH
+# nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# neovim
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+# android and sdk
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+# }}}
 
 # vim:foldmethod=marker:foldlevel=0
