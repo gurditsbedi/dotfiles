@@ -95,10 +95,11 @@ if ! shopt -oq posix; then
   fi
 fi
 # }}}
-# custom aliases {{{
+# aliases {{{
 alias ls='ls -lh --color=auto'
 alias c='clear'
 alias q='exit'
+
 alias r='reset'
 alias cd..='cd ..'
 alias ..='cd ..'
@@ -111,6 +112,8 @@ alias cdt='cd /tmp/'
 
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+alias erc="nvim ~/.bashrc"
+alias src="source ~/.bashrc"
 
 alias grep='grep --colour=auto'
 alias egrep='egrep --colour=auto'
@@ -131,7 +134,7 @@ alias ipy3=/usr/bin/ipython3
 
 alias dbc='xdg-open'            # emulate double click
 alias e='nvim'                  # edit file neovim
-alias v='nvim -M'               # view file in neovim(syntax higlighted view
+alias v='nvim -M'               # view file in neovim(syntax higlighted view)
 
 
 # git
@@ -141,10 +144,11 @@ alias g='git'
 alias cp="cp -i"                # confirm before overwriting something
 alias df='df -h'                # human-readable sizes
 alias free='free -m'            # show sizes in MB
-alias more=less
+alias more='less'
+
 
 # }}}
-# For using transfer.sh to share files {{{
+# transfer.sh {{{
 transfer() { if [ $# -eq 0 ]; then echo "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi
     tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; echo;}
 
@@ -181,26 +185,54 @@ ix() {
 }
 
 # }}}
-# git prompt & completion, neovim, fzf {{{
-# for fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# ix.io {{{
+ix() {
+            local opts
+            local OPTIND
+            [ -f "$HOME/.netrc" ] && opts='-n'
+            while getopts ":hd:i:n:" x; do
+                case $x in
+                    h) echo "ix [-d ID] [-i ID] [-n N] [opts]"; return;;
+                    d) $echo curl $opts -X DELETE ix.io/$OPTARG; return;;
+                    i) opts="$opts -X PUT"; local id="$OPTARG";;
+                    n) opts="$opts -F read:1=$OPTARG";;
+                esac
+            done
+            shift $(($OPTIND - 1))
+            [ -t 0 ] && {
+                local filename="$1"
+                shift
+                [ "$filename" ] && {
+                    curl $opts -F f:1=@"$filename" $* ix.io/$id
+                    return
+                }
+                echo "^C to cancel, ^D to send."
+            }
+            curl $opts -F f:1='<-' $* ix.io/$id
+        }
 
-# for solarized-dir-colors
-eval `dircolors /home/$USER/.dir_colors`
-
-. ~/.git-prompt.sh
-. ~/.git-completion.bash
-export GIT_PS1_SHOWDIRTYSTATE=1
 
 # }}}
-# tree command alternative {{{
+# custom funtions {{{
+
+# reddit expander
+rd() {
+    code="arr = document.getElementsByClassName('expando-button');  for (var i = 0, len = arr.length; i < len; i++) arr[i].click();"
+    echo $code | xclip -sel clip
+    echo "copied: $code"
+}
+
+# mardown viewer in terminal (hack)
+mdv() {
+    file=${1:-"README.md"}
+    pandoc $file | lynx -stdin
+}
+
 # Tree - if the original tree command does not exists
 if [ ! -x "$(which tree 2>/dev/null)" ]
 then
     alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 fi
-# }}}
-# custom funtions {{{
 
 # ex - archive extractor
 # usage: ex <file>
@@ -238,20 +270,56 @@ changeDesktopBackground ()
     file="$(ls --format=single-column $loc | sort --random-sort | head -n1)"
     gsettings set org.gnome.desktop.background picture-uri "$loc$file"
 }
-#changeDesktopBackground $HOME/Pictures/pointpapers/
+#changeDesktopBackground
 
 
 # }}}
-# path additions {{{
-export PATH=~/.local/bin:$PATH
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# fzf-awesomeness {{{
+fzfDmenu() {
+	# note: xdg-open has a bug with .desktop files, so we cant use that shit
+	selected="$(\ls /usr/share/applications | fzf)"
+	nohup `grep '^Exec' "/usr/share/applications/$selected" | head -1 | sed 's/^Exec=//' | sed 's/%.//'` >/dev/null 2>&1&
+}
+# hotkey to run the function (Ctrl+O)
+bind '"\C-O":"fzfDmenu\n"'
+
+cdk() {
+    selected="$(\ls $HOME/Desktop/ | fzf)"
+    cd "$HOME/Desktop/$selected"
+}
+# }}}
+# History Ignores {{{
+    HISTIGNORE="$HISTIGNORE:rd"
+    HISTIGNORE="$HISTIGNORE:e"
+    HISTIGNORE="$HISTIGNORE:q"
+    HISTIGNORE="$HISTIGNORE:r"
+# }}}
+# PATH additions, exports  {{{
+export PATH="$HOME/.local/bin:$PATH"
+# /sbin/
+export PATH="/sbin:$PATH"
+# git
+. ~/.git-prompt.sh
+. ~/.git-completion.bash
+export GIT_PS1_SHOWDIRTYSTATE=1
+# added by Anaconda3 installer
+export PATH="$HOME/anaconda3/bin:$PATH"
+# rustup (rust lang)
+export PATH="$HOME/.cargo/bin:$PATH"
+# haskell
+export PATH=$HOME/.cabal/bin:$PATH
 # neovim
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-# android and sdk
+# android
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+# for fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 # }}}
+
 
 # vim:foldmethod=marker:foldlevel=0
