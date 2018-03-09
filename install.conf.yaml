@@ -9,5 +9,9 @@
       force: true
       create: true
       path: gitconfig
+    ~/.config/nvim/init.vim:
+      force: true
+      create: true
+      path: nvim_init.vim
 
 
