@@ -319,7 +319,16 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
-# }}}
+# apex cli tab completion
+_apex()  {
+  COMPREPLY=()
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  local opts="$(apex autocomplete -- ${COMP_WORDS[@]:1})"
+  COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+  return 0
+}
 
+complete -F _apex apex
+# }}}
 
 # vim:foldmethod=marker:foldlevel=0
