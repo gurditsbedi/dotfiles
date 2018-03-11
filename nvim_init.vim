@@ -25,13 +25,9 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
-Plug 'fszymanski/deoplete-emoji'
-"Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 
 Plug 'Shougo/denite.nvim'
-"Plug 'donRaphaco/neotex', { 'for': 'tex' }
 Plug 'neomake/neomake'
-Plug 'purescript-contrib/purescript-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 
@@ -174,14 +170,9 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " }}}
 "
 
-
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:jsx_ext_required = 0
 autocmd FileType javascript set formatprg=prettier\ --stdin
 autocmd FileType javascript set shiftwidth=2
-
-
-
-
 
 " vim:foldmethod=marker:foldlevel=0
