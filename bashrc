@@ -258,6 +258,18 @@ ex ()
   fi
 }
 
+# pde - processing file runner from commandline
+# usage: pde <sketch-folder>
+pde ()
+{
+  pdecli='/opt/processing-3.3.7/processing-java'
+  if [ -d $1 ] ; then
+      $pdecli --sketch=$1 --run
+  else
+    echo "'$1' is not a valid sketch folder"
+  fi
+}
+
 # Change Desktop Background
 # Selects a random picture from a given directory and sets it as the wallpaper
 # usage: changeDesktopBackground <location>
