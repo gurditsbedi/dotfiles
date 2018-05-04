@@ -135,7 +135,7 @@ alias ipy3=/usr/bin/ipython3
 alias dbc='xdg-open'            # emulate double click
 alias e='nvim'                  # edit file neovim
 alias v='nvim -M'               # view file in neovim(syntax higlighted view)
-
+alias m='cmus'
 
 # git
 alias g='git'
@@ -303,13 +303,9 @@ export PATH="/sbin:$PATH"
 . ~/.git-completion.bash
 export GIT_PS1_SHOWDIRTYSTATE=1
 # added by Anaconda3 installer
-export PATH="$HOME/anaconda3/bin:$PATH"
-# rustup (rust lang)
-export PATH="$HOME/.cargo/bin:$PATH"
-# haskell
-export PATH=$HOME/.cabal/bin:$PATH
-# neovim
-export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+#export PATH="$HOME/anaconda3/bin:$PATH"
+export PATH="$HOME/anaconda3/envs/imgseg/bin:$PATH"
+. /home/gurditsbedi/anaconda3/etc/profile.d/conda.sh
 # android
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/tools
@@ -328,7 +324,6 @@ _apex()  {
   COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
   return 0
 }
-
 complete -F _apex apex
 # }}}
 
