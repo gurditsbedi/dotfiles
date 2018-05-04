@@ -21,3 +21,4 @@
         --pretty=format:'%C(auto)%h%Creset %C(auto)%d%Creset %s %C(green)(%ad) %C(bold cyan)<%an>%Creset'
     ignored = ! git ls-files --others --ignored --exclude-standard --directory && git ls-files --others -i --exclude-standard
     unstage = reset --
+    fza = "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t git add"
