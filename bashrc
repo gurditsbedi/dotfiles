@@ -306,37 +306,25 @@ cdk() {
     HISTIGNORE="$HISTIGNORE:q"
     HISTIGNORE="$HISTIGNORE:r"
 # }}}
+
 # PATH additions, exports  {{{
 export PATH="$HOME/.local/bin:$PATH"
 # /sbin/
 export PATH="/sbin:$PATH"
+
 # git
 . ~/.git-prompt.sh
 . ~/.git-completion.bash
 export GIT_PS1_SHOWDIRTYSTATE=1
-# added by Anaconda3 installer
-#export PATH="$HOME/anaconda3/bin:$PATH"
-export PATH="$HOME/anaconda3/envs/imgseg/bin:$PATH"
-. /home/gurditsbedi/anaconda3/etc/profile.d/conda.sh
-# android
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/platform-tools
+
 # for fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-# apex cli tab completion
-_apex()  {
-  COMPREPLY=()
-  local cur="${COMP_WORDS[COMP_CWORD]}"
-  local opts="$(apex autocomplete -- ${COMP_WORDS[@]:1})"
-  COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
-  return 0
-}
-complete -F _apex apex
+
 # }}}
 
 # vim:foldmethod=marker:foldlevel=0
