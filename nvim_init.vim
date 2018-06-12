@@ -26,18 +26,9 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
 
-Plug 'Shougo/denite.nvim'
 Plug 'neomake/neomake'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'mattn/emmet-vim'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-
-" Language specific
-Plug 'rust-lang/rust.vim'
-Plug 'HerringtonDarkholme/yats.vim'
-"Plug 'mhartington/nvim-typescript'
 call plug#end()
 "}}}
 " Colors {{{
