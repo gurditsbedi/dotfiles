@@ -28,6 +28,7 @@ Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
 
 Plug 'neomake/neomake'
 Plug 'junegunn/fzf.vim'
+Plug '~/.fzf'
 
 call plug#end()
 "}}}
@@ -103,7 +104,7 @@ map <C-n> :NERDTreeToggle<CR>
 " }}}
 " deoplete {{{
 let g:deoplete#enable_at_startup = 1
-let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
+let g:clang_library_path='/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
 autocmd CompleteDone * pclose!
 " }}}
 " Custom Functions {{{
@@ -157,11 +158,11 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 " }}}
-"
-
+" javascript settings {{{
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:jsx_ext_required = 0
 autocmd FileType javascript set formatprg=prettier\ --stdin
 autocmd FileType javascript set shiftwidth=2
+" }}}
 
 " vim:foldmethod=marker:foldlevel=0
