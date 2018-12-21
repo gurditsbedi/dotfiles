@@ -134,7 +134,7 @@ alias ipy3=/usr/bin/ipython3
 
 alias dbc='xdg-open'            # emulate double click
 alias e='nvim'                  # edit file neovim
-alias v='nvim -M'               # view file in neovim(syntax higlighted view)
+alias v='view'               # view file in neovim(syntax higlighted view)
 alias m='cmus'
 
 # git
