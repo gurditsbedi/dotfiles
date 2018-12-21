@@ -25,6 +25,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
+Plug 'rust-lang/rust.vim'
 
 Plug 'neomake/neomake'
 Plug 'junegunn/fzf.vim'
@@ -32,15 +33,15 @@ Plug '~/.fzf'
 
 call plug#end()
 "}}}
-" Colors {{{
+" Basic options {{{
+" Colors
 syntax enable           " enable syntax processing
 colorscheme onedark
 let g:badwolf_darkgutter = 1
 let g:badwolf_tabline = 3
 set encoding=utf8
 set termguicolors
-" }}}
-" Spaces & Tabs {{{
+" Spaces & Tabs
 set tabstop=4           " 4 space tab
 set expandtab           " use spaces for tabs
 set softtabstop=4       " 4 space tab
@@ -49,8 +50,7 @@ set modelines=1
 filetype indent on
 filetype plugin on
 set autoindent
-" }}}
-" UI Layout {{{
+" UI Layout
 set number              " show line numbers
 set showcmd             " show command in bottom bar
 set cursorline        " highlight current line
@@ -59,29 +59,17 @@ set lazyredraw
 set showmatch           " higlight matching parenthesis
 set fillchars+=vert:┃
 set scrolloff=7         " Set 7 lines to the cursor - when moving vertically using j/k
-" }}}
-" Searching {{{
+" Searching
 set ignorecase          " ignore case when searching
 set incsearch           " search as characters are entered
 set hlsearch            " highlight all matches
-" }}}
-" Folding {{{
-"=== folding ===
+" Folding
 set foldmethod=indent   " fold based on indent level
 set foldnestmax=10      " max 10 depth
 set foldenable          " don't fold files by default on open
 nnoremap <space> za
 set foldlevelstart=10   " start with fold level of 1
-" }}}
-" Remappings {{{
-nnoremap j gj
-nnoremap k gk
-imap jk <Esc>
-nnoremap Q <nop>
-vnoremap < <gv
-vnoremap > >gv
-" }}}
-" Backups {{{
+" backup
 set backup
 set writebackup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -102,11 +90,6 @@ set laststatus=2
 " nerdtree {{{
 map <C-n> :NERDTreeToggle<CR>
 " }}}
-" deoplete {{{
-let g:deoplete#enable_at_startup = 1
-let g:clang_library_path='/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
-autocmd CompleteDone * pclose!
-" }}}
 " Custom Functions {{{
 function! ToggleNumber()
     if(&relativenumber == 1)
@@ -116,6 +99,14 @@ function! ToggleNumber()
         set relativenumber
     endif
 endfunc
+
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+
 " }}}
 " autocmd {{{
 " Delete Trailing Spaces automatically
@@ -123,20 +114,62 @@ autocmd BufWritePre * %s/\s\+$//e
 " Neomake execute every buffer save
 autocmd! BufWritePost * Neomake
 " }}}
-" Leader Shortcuts {{{
+" Remappings {{{
+nnoremap j gj
+nnoremap k gk
+imap jk <Esc>
+
+nnoremap Q <nop>
+nnoremap Y y$
+
+" keep selection while indenting in visual-mode
+vnoremap < <gv
+vnoremap > >gv
+
+" buffer navigation
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" Select entire buffer
+nnoremap vaa ggvGg_
+nnoremap Vaa ggVG
+" }}}
+" Leader mappings {{{
 let mapleader=","
+
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
+
 nnoremap <leader>l :call ToggleNumber()<CR>
-nnoremap <leader><space> :noh<CR>
 nnoremap <leader>1 :set number!<CR>
+
+" Keep the cursor in place while joining lines
+nnoremap J mzJ`z
+
+nnoremap <leader><space> :noh<CR>
+
+" Wrap
+nnoremap <leader>W :set wrap!<cr>
+
+" Copying/pasting text to the system clipboard.
+noremap  <leader>p "+p
 vnoremap <leader>y "+y
-" }}}
-" neomake{{{
-let g:neomake_python_enabled_makers = ['flake8', 'pep8']
-" E501 is line length of 80 characters
-let g:neomake_python_flake8_maker = { 'args': ['--ignore=E501'], }
-let g:neomake_python_pep8_maker = { 'args': ['--ignore=E501'], }
+nnoremap <leader>y VV"+y
+nnoremap <leader>Y "+y
+
+" Keep search matches in the middle of the window.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Easier to type, and I never use the default behavior.
+noremap H ^
+noremap L $
+vnoremap L g_
+
+"capitalize last written word
+inoremap <C-u> <esc>mzgUiw`za
 " }}}
 " fzf mappings {{{
 nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
@@ -158,11 +191,15 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 " }}}
-" javascript settings {{{
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:jsx_ext_required = 0
-autocmd FileType javascript set formatprg=prettier\ --stdin
-autocmd FileType javascript set shiftwidth=2
+" neomake python {{{
+let g:neomake_python_enabled_makers = ['pep8']
+" E501 is line length of 80 characters
+let g:neomake_python_pep8_maker = { 'args': ['--ignore=E501'], }
+" }}}
+" deoplete clang {{{
+let g:deoplete#enable_at_startup = 1
+let g:clang_library_path='/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
+autocmd CompleteDone * pclose!
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
