@@ -4,21 +4,5 @@
 [core]
 	editor = nvim
 [alias]
-    ci = commit
     st = status
-    co = checkout
-    ignore = "! echo $1 >> .gitignore"
-    unwatch = update-index --assume-unchanged
-    watch = update-index --no-assume-unchanged
-    unwatched = "!git ls-files -v | grep '^[[:lower:]]'"
-    watchall = "!git unwatched | xargs -L 1 -I % sh -c 'git watch `echo % | cut -c 2-`'"
-    logp=log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
-    lg = log --graph --date-order --first-parent \
-        --pretty=format:'%C(auto)%h%Creset %C(auto)%d%Creset %s %C(green)(%ad) %C(bold cyan)<%an>%Creset'
-    lgb = log --graph --date-order --branches --first-parent \
-        --pretty=format:'%C(auto)%h%Creset %C(auto)%d%Creset %s %C(green)(%ad) %C(bold cyan)<%an>%Creset'
-    lga = log --graph --date-order --all \
-        --pretty=format:'%C(auto)%h%Creset %C(auto)%d%Creset %s %C(green)(%ad) %C(bold cyan)<%an>%Creset'
-    ignored = ! git ls-files --others --ignored --exclude-standard --directory && git ls-files --others -i --exclude-standard
-    unstage = reset --
-    fza = "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t git add"
+
