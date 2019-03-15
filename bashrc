@@ -1,4 +1,3 @@
-
 # If not running interactively, don't do anything {{{
 case $- in
     *i*) ;;
@@ -306,11 +305,11 @@ cdk() {
     HISTIGNORE="$HISTIGNORE:q"
     HISTIGNORE="$HISTIGNORE:r"
 # }}}
-
 # PATH additions, exports  {{{
 export PATH="$HOME/.local/bin:$PATH"
 # /sbin/
 export PATH="/sbin:$PATH"
+export EDITOR="nvim"
 
 # git
 . ~/.git-prompt.sh
