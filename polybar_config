@@ -58,7 +58,7 @@ font-2 = siji:pixelsize=10;1
 
 modules-left = i3
 modules-center =
-modules-right = filesystem xbacklight alsa pulseaudio memory cpu battery temperature date powermenu
+modules-right = xbacklight alsa pulseaudio memory cpu battery temperature date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -185,7 +185,7 @@ label-song-ellipsis = true
 type = internal/xbacklight
 
 format = <label> <bar>
-label = BL
+label = BL %percentage%%
 
 bar-width = 10
 bar-indicator = |
@@ -307,12 +307,15 @@ battery = BAT0
 adapter = ADP1
 full-at = 98
 
+label-charging = CHG %percentage%%
 format-charging = <animation-charging> <label-charging>
 format-charging-underline = #ffb52a
 
+label-discharging = DIS %percentage%%
 format-discharging = <animation-discharging> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
+label-full = FULL CHG
 format-full-prefix = " "
 format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-underline = ${self.format-charging-underline}
