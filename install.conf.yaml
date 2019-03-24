@@ -25,3 +25,11 @@
       force: true
       create: true
       path: i3_config
+    ~/.config/polybar/config:
+      force: true
+      create: true
+      path: polybar_config
+    ~/.config/polybar/launch.sh:
+      force: true
+      create: true
+      path: polybar_launch_script.sh
