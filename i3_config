@@ -93,9 +93,9 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $ws1 "1: Browsers"
-set $ws2 "2: Editors"
-set $ws3 "3: Terminals"
+set $ws1 "1: Browser"
+set $ws2 "2: Code"
+set $ws3 "3: Terminal"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
@@ -138,7 +138,10 @@ assign [class="Google-chrome"] $ws1
 
 assign [class="Sublime_text"] $ws2
 assign [class="Gnome-terminal"] $ws3
+assign [class="Nautilus"] $ws4
+assign [class="Insomnia"] $ws8
 assign [class="Sublime_merge"] $ws9
+assign [class="vlc"] $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
