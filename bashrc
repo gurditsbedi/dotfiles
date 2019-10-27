@@ -104,135 +104,22 @@ alias cd..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias ......='cd ../../../../..'
 alias cdd='cd ~/Desktop'
 alias cdt='cd /tmp/'
 
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias erc="nvim ~/.bashrc"
-alias src="source ~/.bashrc"
-
-alias grep='grep --colour=auto'
-alias egrep='egrep --colour=auto'
-alias fgrep='fgrep --colour=auto'
-
 alias xcp='xclip -sel clip'
 
 alias mkdir='mkdir -p'
 
-alias py=/usr/bin/python3
-alias py3=/usr/bin/python3
-alias python=/usr/bin/python3
-alias py2=/usr/bin/python2
-alias python2=/usr/bin/python2
-alias ipy=/usr/bin/ipython3
-alias ipy2=/usr/bin/ipython
-alias ipy3=/usr/bin/ipython3
-
 alias dbc='xdg-open'            # emulate double click
 alias e='nvim'                  # edit file neovim
-alias v='view'               # view file in neovim(syntax higlighted view)
 alias m='cmus'
 
-# git
-alias g='git'
-
-
 alias cp="cp -i"                # confirm before overwriting something
-alias df='df -h'                # human-readable sizes
-alias free='free -m'            # show sizes in MB
-alias more='less'
-
-
-# }}}
-# transfer.sh {{{
-transfer() { if [ $# -eq 0 ]; then echo "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi
-    tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; echo;}
-
-# Examples:
-#     ix hello.txt              # paste file (name/ext will be set).
-#     echo Hello world. | ix    # read from STDIN (won't set name/ext).
-#     ix -n 1 self_destruct.txt # paste will be deleted after one read.
-#     ix -i ID hello.txt        # replace ID, if you have permission.
-#     ix -d ID
-
-ix() {
-    local opts
-    local OPTIND
-    [ -f "$HOME/.netrc" ] && opts='-n'
-    while getopts ":hd:i:n:" x; do
-        case $x in
-            h) echo "ix [-d ID] [-i ID] [-n N] [opts]"; return;;
-            d) $echo curl $opts -X DELETE ix.io/$OPTARG; return;;
-            i) opts="$opts -X PUT"; local id="$OPTARG";;
-            n) opts="$opts -F read:1=$OPTARG";;
-        esac
-    done
-    shift $(($OPTIND - 1))
-    [ -t 0 ] && {
-        local filename="$1"
-        shift
-        [ "$filename" ] && {
-            curl $opts -F f:1=@"$filename" $* ix.io/$id
-            return
-        }
-        echo "^C to cancel, ^D to send."
-    }
-    curl $opts -F f:1='<-' $* ix.io/$id
-}
-
-# }}}
-# ix.io {{{
-ix() {
-            local opts
-            local OPTIND
-            [ -f "$HOME/.netrc" ] && opts='-n'
-            while getopts ":hd:i:n:" x; do
-                case $x in
-                    h) echo "ix [-d ID] [-i ID] [-n N] [opts]"; return;;
-                    d) $echo curl $opts -X DELETE ix.io/$OPTARG; return;;
-                    i) opts="$opts -X PUT"; local id="$OPTARG";;
-                    n) opts="$opts -F read:1=$OPTARG";;
-                esac
-            done
-            shift $(($OPTIND - 1))
-            [ -t 0 ] && {
-                local filename="$1"
-                shift
-                [ "$filename" ] && {
-                    curl $opts -F f:1=@"$filename" $* ix.io/$id
-                    return
-                }
-                echo "^C to cancel, ^D to send."
-            }
-            curl $opts -F f:1='<-' $* ix.io/$id
-        }
-
-
 # }}}
 # custom funtions {{{
-
-# reddit expander
-rd() {
-    code="arr = document.getElementsByClassName('expando-button');  for (var i = 0, len = arr.length; i < len; i++) arr[i].click();"
-    echo $code | xclip -sel clip
-    echo "copied: $code"
-}
-
-# mardown viewer in terminal (hack)
-mdv() {
-    file=${1:-"README.md"}
-    pandoc $file | lynx -stdin
-}
-
-# Tree - if the original tree command does not exists
-if [ ! -x "$(which tree 2>/dev/null)" ]
-then
-    alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
-fi
-
 # ex - archive extractor
 # usage: ex <file>
 ex ()
@@ -257,18 +144,6 @@ ex ()
   fi
 }
 
-# pde - processing file runner from commandline
-# usage: pde <sketch-folder>
-pde ()
-{
-  pdecli='/opt/processing-3.3.7/processing-java'
-  if [ -d $1 ] ; then
-      $pdecli --sketch=$1 --run
-  else
-    echo "'$1' is not a valid sketch folder"
-  fi
-}
-
 # Change Desktop Background
 # Selects a random picture from a given directory and sets it as the wallpaper
 # usage: changeDesktopBackground <location>
@@ -281,26 +156,9 @@ changeDesktopBackground ()
     file="$(ls --format=single-column $loc | sort --random-sort | head -n1)"
     gsettings set org.gnome.desktop.background picture-uri "$loc$file"
 }
-#changeDesktopBackground
 
-
-# }}}
-# fzf-awesomeness {{{
-fzfDmenu() {
-	# note: xdg-open has a bug with .desktop files, so we cant use that shit
-	selected="$(\ls /usr/share/applications | fzf)"
-	nohup `grep '^Exec' "/usr/share/applications/$selected" | head -1 | sed 's/^Exec=//' | sed 's/%.//'` >/dev/null 2>&1&
-}
-# hotkey to run the function (Ctrl+O)
-bind '"\C-O":"fzfDmenu\n"'
-
-cdk() {
-    selected="$(\ls $HOME/Desktop/ | fzf)"
-    cd "$HOME/Desktop/$selected"
-}
 # }}}
 # History Ignores {{{
-    HISTIGNORE="$HISTIGNORE:rd"
     HISTIGNORE="$HISTIGNORE:e"
     HISTIGNORE="$HISTIGNORE:q"
     HISTIGNORE="$HISTIGNORE:r"
