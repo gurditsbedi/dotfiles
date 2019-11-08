@@ -58,7 +58,7 @@ font-2 = "fixed:pixelsize=10;1"
 
 modules-left = i3
 modules-center =
-modules-right = xbacklight alsa pulseaudio cpu memory battery date
+modules-right = jiofi xbacklight alsa pulseaudio cpu memory battery date
 
 tray-position = right
 tray-padding = 2
@@ -342,6 +342,12 @@ menu-2-0 = power off
 menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
+
+[module/jiofi]
+type = custom/script
+exec = $HOME/dotfiles/jiofi_battery.sh
+interval=60
+format-underline = #ffb52a
 
 [settings]
 screenchange-reload = true
