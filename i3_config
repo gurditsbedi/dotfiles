@@ -188,7 +188,7 @@ exec xinput set-prop 14 276 1
 exec xinput set-prop 14 284 1
 
 # i3lock key
-bindsym $mod+shift+x exec i3lock
+bindsym $mod+shift+x exec i3lock --ignore-empty-password -i /home/gurditsbedi/Pictures/Wallpapers/lock.png
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
