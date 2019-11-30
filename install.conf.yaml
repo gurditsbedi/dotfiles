@@ -33,3 +33,15 @@
       force: true
       create: true
       path: polybar_launch_script.sh
+    ~/.doom.d/config.el:
+      force: true
+      create: true
+      path: doom-emacs-config/config.el
+    ~/.doom.d/init.el:
+      force: true
+      create: true
+      path: doom-emacs-config/init.el
+    ~/.doom.d/packages.el:
+      force: true
+      create: true
+      path: doom-emacs-config/packages.el
