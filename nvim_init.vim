@@ -13,8 +13,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
+Plug 'machakann/vim-sandwich'
 
 Plug 'rust-lang/rust.vim'
 
@@ -190,6 +189,8 @@ let g:LanguageClient_serverCommands = {
     \ }
 nnoremap <Leader>l :call LanguageClient_contextMenu()<CR>
 
+" vim-sandwich's vim-surround keybindings
+runtime macros/sandwich/keymap/surround.vim
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
