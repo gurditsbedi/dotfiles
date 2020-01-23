@@ -137,11 +137,14 @@ assign [class="Firefox"] $ws1
 assign [class="Chromium-browser"] $ws1
 assign [class="Google-chrome"] $ws1
 
-assign [class="Sublime_text"] $ws2
-assign [class="Gnome-terminal"] $ws3
+assign [class="Alacritty"] $ws2
+assign [class="Gnome-terminal"] $ws2
+
+assign [class="Emacs"] $ws3
+assign [class="Sublime_text"] $ws3
+
 assign [class="Nautilus"] $ws4
-assign [class="Insomnia"] $ws8
-assign [class="Sublime_merge"] $ws9
+assign [class="qBittorrent"] $ws8
 assign [class="vlc"] $ws10
 
 # reload the configuration file
