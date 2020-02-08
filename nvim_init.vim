@@ -65,6 +65,7 @@ set scrolloff=7         " Set 7 lines to the cursor - when moving vertically usi
 set ignorecase          " ignore case when searching
 set incsearch           " search as characters are entered
 set hlsearch            " highlight all matches
+set inccommand=split    " incremental visual feedback when doing the substitute command
 
 " Folding
 set foldmethod=indent   " fold based on indent level
