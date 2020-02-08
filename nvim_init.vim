@@ -95,13 +95,6 @@ function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
-
-function FormatC()
-    let pos = getpos(".")
-    execute ":%!clang-format -style='{BasedOnStyle: WebKit,BreakBeforeBraces: 'Attach', ColumnLimit: 80}'"
-    call setpos(".", pos)
-    execute ":norm zz"
-endfunc
 " }}}
 " autocmd {{{
 " Delete Trailing Spaces automatically
@@ -177,7 +170,6 @@ xnoremap <silent> <Leader>ag       y:Ag <C-R>"<CR>
 
 " deoplete clang
 let g:deoplete#enable_at_startup = 1
-let g:clang_library_path='/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
 autocmd CompleteDone * pclose!
 
 " LanguageClient-neovim
