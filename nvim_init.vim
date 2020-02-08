@@ -10,8 +10,8 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Plugins
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
+Plug 'tomtom/tcomment_vim'
+Plug 'preservim/nerdtree'
 
 Plug 'machakann/vim-sandwich'
 
@@ -22,6 +22,8 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
+
+Plug 'jupyter-vim/jupyter-vim'
 
 Plug 'junegunn/fzf.vim'
 Plug '~/.fzf'
