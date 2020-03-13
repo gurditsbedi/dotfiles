@@ -218,6 +218,12 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # nitrogen(wallpaper setter)
 exec --no-startup-id nitrogen --restore
 
+# wifi indicator and selector
+exec --no-startup-id nm-applet
+
+# default layout is now tabbed
+workspace_layout tabbed
+
 # Screenshot
 bindsym Print exec gnome-screenshot
 bindsym --release Shift+Print exec gnome-screenshot --area
