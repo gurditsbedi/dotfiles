@@ -311,22 +311,13 @@ type = internal/network
 interface = wlp2s0
 interval = 3.0
 
-label-connected = %{A1:alacritty -e nmtui:}WiFi %essid%%{A}
-format-connected = <label-connected> <ramp-signal>
+label-connected = WiFi %essid%
+format-connected = <label-connected>
 format-connected-underline = #00acc1
 
 label-disconnected = WiFi ×
 format-disconnected = <label-disconnected>
 format-disconnected-underline = #00acc1
-
-
-
-ramp-signal-0 = 0/5
-ramp-signal-1 = 1/5
-ramp-signal-2 = 2/5
-ramp-signal-3 = 3/5
-ramp-signal-4 = 4/5
-ramp-signal-5 = 5/5
 
 [module/jiofi]
 type = custom/script
