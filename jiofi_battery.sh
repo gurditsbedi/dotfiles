@@ -1,14 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-html=`curl -s  http://jiofi.local.html/ | tr -d '\000'`
-battery_level=`echo $html | egrep -o "[0-9]+%"`
-is_discharging=`echo $html | grep -i -o "discharging"`
+rawhtml=`curl -s  'http://jiofi.local.html/'`
+[ $? -gt 0 ] && echo "" && exit 1 # exit if curl failed
 
-if [[ "$html" ]] ; then
-    if [[ "$is_discharging" ]] ; then
-        echo "JioFi $battery_level ▼"
-    else
-        echo "JioFi $battery_level ▲"
-    fi
-fi
+html=`echo $rawhtml | tr -d '\000'`
+battery_level=`echo $html | grep -oE "[0-9]+%" | rev | cut -c 2- | rev`
 
+_=$(echo $html | grep -i -o "discharging")
+[ $? = 0 ] && echo "JioFi $battery_level% ▼" || echo "JioFi $battery_level% ▲"
