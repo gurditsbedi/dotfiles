@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Notify me with notify-send if my JioFi battery is below
+# $critical_value %. You can set this to run via cron.
+critical_value="20"
+
+rawhtml=$(curl -s 'http://jiofi.local.html/')
+[ $? -gt 0 ] && exit # exit if curl failed
+
+html=$(echo $rawhtml | tr -d '\000')
+battery_level=$(echo $html | grep -oE "[0-9]+%" | rev | cut -c 2- | rev)
+
+[ "$battery_level" -lt "$critical_value" ] &&
+[ $(echo $html | grep -i -o "discharging") ] &&
+export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus &&
+notify-send -t 5000 -u critical "JioFi battery low."

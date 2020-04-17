@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Notify me with notify-send if my laptop battery is below $critical_value%.
+# You can set this to run via cron.
+
+[ "$(cat /sys/class/power_supply/BAT0/status)" = "Charging" ] && exit
+
+critical_value="30"
+curr_bat="$(cat /sys/class/power_supply/BAT0/capacity)"
+
+[ "$curr_bat" -lt "$critical_value" ] &&
+export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus &&
+notify-send -t 5000 -u critical "Battery critically low. $curr_bat%"
