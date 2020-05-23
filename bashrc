@@ -13,8 +13,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=5000
+HISTFILESIZE=5000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -159,9 +159,7 @@ changeDesktopBackground ()
 
 # }}}
 # History Ignores {{{
-    HISTIGNORE="$HISTIGNORE:e"
-    HISTIGNORE="$HISTIGNORE:q"
-    HISTIGNORE="$HISTIGNORE:r"
+    HISTIGNORE="$HISTIGNORE:e:q:r:f:z *"
 # }}}
 # PATH additions, exports  {{{
 export PATH="$HOME/.local/bin:$PATH"
