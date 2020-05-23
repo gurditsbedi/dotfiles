@@ -4,6 +4,7 @@ call plug#begin('~/.local/share/nvim/site/autoload/')
 Plug 'sjl/badwolf'
 Plug 'joshdick/onedark.vim'
 Plug 'iCyMind/NeoSolarized'
+Plug 'morhetz/gruvbox'
 
 " statusline
 Plug 'bling/vim-airline'
@@ -34,9 +35,8 @@ call plug#end()
 
 " Colors
 syntax enable           " enable syntax processing
-colorscheme badwolf
-let g:badwolf_darkgutter = 1
-let g:badwolf_tabline = 3
+let g:gruvbox_italic=1
+colorscheme gruvbox
 set encoding=utf8
 set termguicolors
 
