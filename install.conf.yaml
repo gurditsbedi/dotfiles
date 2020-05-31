@@ -13,14 +13,6 @@
       force: true
       create: true
       path: nvim_init.vim
-    ~/.git-completion.bash:
-      force: true
-      create: true
-      path: git-completion.bash
-    ~/.git-prompt.sh:
-      force: true
-      create: true
-      path: git-prompt.sh
     ~/.config/i3/config:
       force: true
       create: true

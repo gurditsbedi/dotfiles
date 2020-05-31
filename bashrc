@@ -170,8 +170,8 @@ export EDITOR="nvim"
 export TERM=alacritty
 
 # git
-. ~/.git-prompt.sh
-. ~/.git-completion.bash
+. ~/dotfiles/git-prompt.sh
+. ~/dotfiles/git-completion.bash
 export GIT_PS1_SHOWDIRTYSTATE=1
 
 # for fzf
