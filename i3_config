@@ -212,8 +212,23 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-# custom polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# i3status-rs
+bar {
+    # font pango: Iosevka, FontAwesome 12
+    font pango: Iosevka, Font Awesome 5 Free 12
+
+    position bottom
+    status_command I3SOCK=$(i3 --get-socketpath) /usr/bin/i3status-rs
+    colors {
+        separator #666666
+        background #222222
+        statusline #dddddd
+        focused_workspace #0088CC #0088CC #ffffff
+        active_workspace #333333 #333333 #ffffff
+        inactive_workspace #333333 #333333 #888888
+        urgent_workspace #2f343a #900000 #ffffff
+    }
+}
 
 # nitrogen(wallpaper setter)
 exec --no-startup-id nitrogen --restore

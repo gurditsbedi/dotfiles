@@ -25,6 +25,10 @@
       force: true
       create: true
       path: i3_config
+    ~/.config/i3status-rust/config.toml:
+      force: true
+      create: true
+      path: i3status-rust.toml
     ~/.config/polybar/config:
       force: true
       create: true
