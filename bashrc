@@ -166,6 +166,7 @@ export PATH="$HOME/.local/bin:$PATH"
 # /sbin/
 export PATH="/sbin:$PATH"
 export EDITOR="nvim"
+export TERM=alacritty
 
 # git
 . ~/.git-prompt.sh
@@ -180,7 +181,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export TERM=alacritty
 # }}}
 # programs initilizations {{{
 # z tool
