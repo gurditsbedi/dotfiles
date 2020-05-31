@@ -116,6 +116,7 @@ alias mkdir='mkdir -p'
 alias dbc='xdg-open'            # emulate double click
 alias e='nvim'                  # edit file neovim
 alias m='cmus'
+alias f='ranger'
 
 alias cp="cp -i"                # confirm before overwriting something
 # }}}
