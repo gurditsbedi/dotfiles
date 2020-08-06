@@ -207,6 +207,18 @@ nnoremap <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
 
 " vim-sandwich's vim-surround keybindings
 runtime macros/sandwich/keymap/surround.vim
+
+" jupyter-vim
+let g:jupyter_mapkeys = 0
+" Run current file
+nnoremap <leader>cf :JupyterRunFile<CR>
+" Change to directory of current file
+nnoremap <leader>cd :JupyterCd %:p:h<CR>
+" Send a selection of lines
+nnoremap <leader>cc :JupyterSendCell<CR>
+nnoremap <leader>cr :JupyterSendRange<CR>
+nmap     <leader>cr <Plug>JupyterRunTextObj
+vmap     <leader>cr <Plug>JupyterRunVisual
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
