@@ -207,7 +207,8 @@ let g:LanguageClient_serverCommands = {
     \ 'sh': ['bash-language-server', 'start'],
     \ 'tex': ['texlab'],
     \ }
-nnoremap <Leader>l :call LanguageClient_contextMenu()<CR>
+nnoremap <Leader>ll :call LanguageClient_contextMenu()<CR>
+nnoremap <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
 
 " vim-sandwich's vim-surround keybindings
 runtime macros/sandwich/keymap/surround.vim
