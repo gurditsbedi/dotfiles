@@ -74,3 +74,30 @@
       :n "SPC m x" 'org-latex-preview)
 
 (setq langtool-language-tool-jar "/opt/languagetool/languagetool-commandline.jar")
+
+(setq evil-vsplit-window-right t) ;; open new split in right side
+(setq evil-split-window-below t)  ;; open new split below
+
+(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)     ;; j => gj
+(define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line) ;; k => gk
+
+;; vim's scrolloff option
+(setq scroll-margin 7
+      scroll-step 1
+      scroll-conservatively 10000
+      scroll-preserve-screen-position 1)
+
+;; Org Capture Templates
+(after! org (setq org-capture-templates
+                  '(("t" "Personal todo" entry
+                     (file+headline "~/org/todo.org" "Inbox")
+                     "* [ ] %?\n%i\n%a" :prepend t)
+                    ("n" "Personal notes" entry
+                     (file+headline "~/org/notes.org" "Inbox")
+                     "* %:description %?\n%i\n%a" :prepend t))))
+
+(setq ivy-read-action-function #'ivy-hydra-read-action)
+(setq which-key-idle-delay 0.5)
+
+;; bring back the "s" key
+(after! evil-snipe (evil-snipe-mode -1))
