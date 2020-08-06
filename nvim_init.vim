@@ -153,7 +153,7 @@ xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 " Leader mappings {{{
 let mapleader="\<Space>"
 
-nnoremap <leader>ev :vsp $MYVIMRC<CR>
+nnoremap <leader>ev :e $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 nnoremap <leader>, :noh<CR>
