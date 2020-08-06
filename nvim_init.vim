@@ -113,6 +113,10 @@ fun! StripTrailingWhitespace()
 endfun
 
 autocmd BufWritePre * call StripTrailingWhitespace()
+
+" Reload file to match with foreign changes
+set autoread
+au FocusGained,BufEnter * :checktime
 " }}}
 " Remappings {{{
 nnoremap j gj
