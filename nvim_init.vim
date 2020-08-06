@@ -130,7 +130,7 @@ nnoremap Y y$
 vnoremap < <gv
 vnoremap > >gv
 
-" buffer navigation
+" split navigation
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
@@ -165,7 +165,6 @@ nnoremap <leader>W :set wrap!<cr>
 noremap  <leader>p "+p
 vnoremap <leader>y "+y
 nnoremap <leader>y VV"+y
-nnoremap <leader>Y "+y
 
 " exectuing
 vnoremap <leader>n :normal<space>
@@ -186,13 +185,9 @@ let g:highlightedyank_highlight_duration = 300
 map <C-n> :NERDTreeToggle<CR>
 
 " airline
-set laststatus=2
 let g:airline_theme = 'zenburn'
 
 " fzf mappings
-nnoremap <silent> <Leader>ag       :Ag <C-R><C-W><CR>
-nnoremap <silent> <Leader>AG       :Ag <C-R><C-A><CR>
-xnoremap <silent> <Leader>ag       y:Ag <C-R>"<CR>
 
 " deoplete clang
 let g:deoplete#enable_at_startup = 1
