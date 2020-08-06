@@ -204,6 +204,8 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ 'c': ['clangd-8'],
     \ 'cpp': ['clangd-8'],
+    \ 'sh': ['bash-language-server', 'start'],
+    \ 'tex': ['texlab'],
     \ }
 nnoremap <Leader>l :call LanguageClient_contextMenu()<CR>
 
