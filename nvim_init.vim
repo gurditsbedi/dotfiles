@@ -15,6 +15,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'preservim/nerdtree'
 
 Plug 'machakann/vim-sandwich'
+Plug 'machakann/vim-highlightedyank' "To be removed in neovim 0.5
 
 Plug 'rust-lang/rust.vim'
 
@@ -159,6 +160,9 @@ vnoremap <leader>n :normal<space>
 nnoremap <leader>t :vsplit term://bash<cr>
 " }}}
 " Plugin Settings {{{
+" highlightedyank
+let g:highlightedyank_highlight_duration = 300
+
 " nerdtree
 map <C-n> :NERDTreeToggle<CR>
 
