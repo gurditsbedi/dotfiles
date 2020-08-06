@@ -172,6 +172,11 @@ vnoremap <leader>n :normal<space>
 
 " neovim terminal mode helpers
 nnoremap <leader>t :vsplit term://bash<cr>
+
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bp :bprevious<CR>
+nnoremap <leader>bk :bdelete<CR>
+
 " }}}
 " Plugin Settings {{{
 " highlightedyank
