@@ -4,7 +4,7 @@ call plug#begin('~/.local/share/nvim/site/autoload/')
 Plug 'sjl/badwolf'
 Plug 'joshdick/onedark.vim'
 Plug 'iCyMind/NeoSolarized'
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 
 " statusline
 Plug 'bling/vim-airline'
