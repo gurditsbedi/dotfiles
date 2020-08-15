@@ -1,0 +1,7 @@
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+
+"\C-f": unix-filename-rubout
+
+set show-all-if-ambiguous on
+set completion-ignore-case on
