@@ -21,6 +21,10 @@
       force: true
       create: true
       path: i3status-rust.toml
+    ~/.inputrc:
+      force: true
+      create: true
+      path: inputrc
     ~/.doom.d/config.el:
       force: true
       create: true
