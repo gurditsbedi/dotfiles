@@ -144,8 +144,11 @@ assign [class="Emacs"] $ws3
 assign [class="Sublime_text"] $ws3
 
 assign [class="Nautilus"] $ws4
+assign [class="Nemo"] $ws4
 assign [class="qBittorrent"] $ws8
-assign [class="vlc"] $ws10
+
+assign [class="vlc"] $ws5
+assign [class="mpv"] $ws5
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -231,10 +234,13 @@ bar {
 }
 
 # nitrogen(wallpaper setter)
-exec --no-startup-id nitrogen --restore
+exec --no-startup-id nitrogen --restore &
 
 # wifi indicator and selector
 exec --no-startup-id nm-applet
+
+# Kde Connect
+exec --no-startup-id kdeconnect-indicator
 
 # default layout is now tabbed
 workspace_layout tabbed
@@ -245,3 +251,12 @@ for_window [class=".*"] border pixel 1
 # Screenshot
 bindsym Print exec gnome-screenshot
 bindsym --release Shift+Print exec gnome-screenshot --area
+bindsym --release Ctrl+Print exec gnome-screenshot --window
+
+bindsym $mod+Shift+w exec --no-startup-id firefox &
+bindsym $mod+Shift+c exec --no-startup-id chromium-browser &
+bindsym $mod+Shift+n exec --no-startup-id nemo &
+bindsym $mod+Shift+m exec --no-startup-id emacs &
+
+bindsym --release $mod+Shift+Ctrl+k exec xkill
+
