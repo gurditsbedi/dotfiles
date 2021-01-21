@@ -160,7 +160,7 @@ changeDesktopBackground ()
 
 # }}}
 # History Ignores {{{
-    HISTIGNORE="$HISTIGNORE:e:q:r:f:z *"
+    HISTIGNORE="$HISTIGNORE:e:q:r:f:z *:..:...:....:which:chmod"
 # }}}
 # PATH additions, exports  {{{
 export PATH="$HOME/.local/bin:$PATH"
@@ -189,5 +189,9 @@ export NVM_DIR="$HOME/.nvm"
 # direnv
 eval "$(direnv hook bash)"
 # }}}
+
+copy_file_path() {
+    readlink -f $1 | xclip -sel clip
+}
 
 # vim:foldmethod=marker:foldlevel=0
