@@ -14,7 +14,7 @@ set $mod Mod4
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 #font pango:monospace 8
-font pango:Ubuntu 10
+font pango:Iosevka 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -183,24 +183,18 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-#bar {
-        #status_command i3status
-#}
-
 # tap to click for my laptop
 exec xinput set-prop 14 276 1
 # reverse scroll direction
 exec xinput set-prop 14 284 1
 
 # i3lock key
-bindsym $mod+shift+x exec i3lock --ignore-empty-password -i /home/gurditsbedi/Pictures/Wallpapers/lock.png
+bindsym $mod+shift+x exec i3lock --ignore-empty-password --tiling -i /home/gurditsbedi/Pictures/.lock.png
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-volume 0 +5%   ; pactl set-sink-volume 1 +5%   ; pactl set-sink-volume 2 +5%   ; pactl set-sink-volume 3 +5%   "
+bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-volume 0 -5%   ; pactl set-sink-volume 1 -5%   ; pactl set-sink-volume 2 -5%   ; pactl set-sink-volume 3 -5%   "
+bindsym XF86AudioMute        exec --no-startup-id "pactl set-sink-mute   0 toggle; pactl set-sink-mute   1 toggle; pactl set-sink-mute   2 toggle; pactl set-sink-mute   3 toggle"
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
@@ -217,7 +211,6 @@ bindsym XF86AudioPrev exec playerctl previous
 
 # i3status-rs
 bar {
-    # font pango: Iosevka, FontAwesome 12
     font pango: Iosevka, Font Awesome 5 Free 12
 
     position bottom
@@ -241,9 +234,6 @@ exec --no-startup-id nm-applet
 
 # Kde Connect
 exec --no-startup-id kdeconnect-indicator
-
-# default layout is now tabbed
-workspace_layout tabbed
 
 # removes the title-bar of i3 if the workspace contains only 1 window
 for_window [class=".*"] border pixel 1
