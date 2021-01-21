@@ -2,8 +2,6 @@
 call plug#begin('~/.local/share/nvim/site/autoload/')
 " colorschemes
 Plug 'sjl/badwolf'
-Plug 'joshdick/onedark.vim'
-Plug 'iCyMind/NeoSolarized'
 Plug 'gruvbox-community/gruvbox'
 
 " statusline
@@ -12,20 +10,19 @@ Plug 'vim-airline/vim-airline-themes'
 
 " Plugins
 Plug 'tomtom/tcomment_vim'
-Plug 'preservim/nerdtree'
+Plug 'lambdalisue/fern.vim'
+Plug 'tommcdo/vim-lion'
 
 Plug 'machakann/vim-sandwich'
 Plug 'machakann/vim-highlightedyank' "To be removed in neovim 0.5
 
 Plug 'rust-lang/rust.vim'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'jupyter-vim/jupyter-vim'
+Plug 'hkupty/iron.nvim'
+Plug 'goerz/jupytext.vim'
 
 Plug 'junegunn/fzf.vim'
 Plug '~/.fzf'
@@ -61,6 +58,7 @@ set showmatch           " higlight matching parenthesis
 set fillchars=diff:⣿,vert:\|
 set synmaxcol=800       " Don't try to highlight lines longer than 800 characters.
 set scrolloff=7         " Set 7 lines to the cursor - when moving vertically using j/k
+set clipboard+=unnamedplus      " This will make the system clipboard and vim's clipboard equal
 
 " Searching
 set ignorecase          " ignore case when searching
@@ -122,6 +120,9 @@ au FocusGained,BufEnter * :checktime
 nnoremap j gj
 nnoremap k gk
 imap jk <Esc>
+imap Jk <Esc>
+imap jK <Esc>
+imap JK <Esc>
 
 nnoremap Q <nop>
 nnoremap Y y$
@@ -149,6 +150,13 @@ nnoremap , za
 
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
+nnoremap L g_
+nnoremap H 0
+onoremap L g_
+onoremap H 0
+
+" also clear search with <Esc>
+nnoremap <esc> :noh<return><esc>
 " }}}
 " Leader mappings {{{
 let mapleader="\<Space>"
@@ -157,14 +165,6 @@ nnoremap <leader>ev :e $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 nnoremap <leader>, :noh<CR>
-
-" Wrap
-nnoremap <leader>W :set wrap!<cr>
-
-" Copying/pasting text to the system clipboard.
-noremap  <leader>p "+p
-vnoremap <leader>y "+y
-nnoremap <leader>y VV"+y
 
 " exectuing
 vnoremap <leader>n :normal<space>
@@ -181,29 +181,11 @@ nnoremap <leader>bk :bdelete<CR>
 " highlightedyank
 let g:highlightedyank_highlight_duration = 300
 
-" nerdtree
-map <C-n> :NERDTreeToggle<CR>
-
 " airline
 let g:airline_theme = 'zenburn'
 
-" fzf mappings
-
-" deoplete clang
-let g:deoplete#enable_at_startup = 1
-autocmd CompleteDone * pclose!
-
-" LanguageClient-neovim
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'python': ['pyls'],
-    \ 'c': ['clangd-8'],
-    \ 'cpp': ['clangd-8'],
-    \ 'sh': ['bash-language-server', 'start'],
-    \ 'tex': ['texlab'],
-    \ }
-nnoremap <Leader>ll :call LanguageClient_contextMenu()<CR>
-nnoremap <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
+" fzf
+autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 
 " vim-sandwich's vim-surround keybindings
 runtime macros/sandwich/keymap/surround.vim
@@ -219,6 +201,42 @@ nnoremap <leader>cc :JupyterSendCell<CR>
 nnoremap <leader>cr :JupyterSendRange<CR>
 nmap     <leader>cr <Plug>JupyterRunTextObj
 vmap     <leader>cr <Plug>JupyterRunVisual
+
+" Fern {{{
+noremap <silent> <C-n> :Fern . -drawer -reveal=% -toggle -width=35<CR><C-w>=
+
+let g:fern#disable_default_mappings   = 1
+let g:fern#disable_drawer_auto_quit   = 1
+let g:fern#disable_viewer_hide_cursor = 1
+
+function! FernInit() abort
+  nmap <buffer><expr>
+        \ <Plug>(fern-my-open-expand-collapse)
+        \ fern#smart#leaf(
+        \   "\<Plug>(fern-action-open:select)",
+        \   "\<Plug>(fern-action-expand:in)",
+        \   "\<Plug>(fern-action-collapse)",
+        \ )
+  nmap <buffer> <CR> <Plug>(fern-my-open-expand-collapse)
+  nmap <buffer> m <Plug>(fern-action-mark:toggle)j
+  nmap <buffer> N <Plug>(fern-action-new-file)
+  nmap <buffer> K <Plug>(fern-action-new-dir)
+  nmap <buffer> D <Plug>(fern-action-remove)
+  nmap <buffer> V <Plug>(fern-action-move)
+  nmap <buffer> R <Plug>(fern-action-rename)
+  nmap <buffer> s <Plug>(fern-action-open:split)
+  nmap <buffer> v <Plug>(fern-action-open:vsplit)
+  nmap <buffer> r <Plug>(fern-action-reload)
+  nmap <buffer> <nowait> d <Plug>(fern-action-hidden:toggle)
+  nmap <buffer> <nowait> < <Plug>(fern-action-leave)
+  nmap <buffer> <nowait> > <Plug>(fern-action-enter)
+endfunction
+
+augroup FernEvents
+  autocmd!
+  autocmd FileType fern call FernInit()
+augroup END
+" }}}
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
