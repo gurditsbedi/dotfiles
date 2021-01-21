@@ -14,12 +14,28 @@ backlight_partial2 = '🌓'
 backlight_partial3 = '🌔'
 backlight_full = '🌕'
 
+
 [[block]]
-block = "focused_window"
-max_width = 50
+block = "bluetooth"
+mac = "58:85:E9:15:6A:A0"
+label = ""
+
+[[block]]
+block = "kdeconnect"
+format = "{bat_charge}% {notif_icon}{notif_count}"
+format_disconnected = ''
+
+[[block]]
+block = "net"
+device = "wlp2s0"
+interval = 1
+speed_down = true
+speed_up = true
+
 
 [[block]]
 block = "networkmanager"
+max_ssid_width=21
 primary_only=true
 device_format = "{icon}{ap}"
 connection_format = "{devices}"
@@ -38,6 +54,7 @@ device = "intel_backlight"
 block = "sound"
 driver = "pulseaudio"
 name = "alsa_output.pci-0000_00_1f.3.analog-stereo"
+max_vol = 150
 
 [[block]]
 block = "cpu"
